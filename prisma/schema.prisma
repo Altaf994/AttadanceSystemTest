@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+  engineType = "binary"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String?
+  password     String
+  role         String   @default("USER")
+  service      String?
+  serviceUnit  String?
+  active       Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  sessions     Session[]
+}
+
+model Event {
+  id       String @id @default(cuid())
+  occasion String @unique
+}
+
+model CheckIn {
+  id            String   @id @default(cuid())
+  volunteerId   String
+  volunteerName String
+  checkinAt     DateTime @default(now()) @db.Timestamptz(3)
+  checkoutAt    DateTime? @db.Timestamptz(3)
+  checkinAtClient String?
+  checkoutAtClient String?
+  takenByUserId String?
+  service       String?
+  serviceUnit   String?
+  event         String
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  user         User     @relation(fields: [userId], references: [id])
+  userId       String
+  expiresAt    DateTime
+  createdAt    DateTime @default(now())
+}

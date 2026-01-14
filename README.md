@@ -16,6 +16,38 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Timezone (Recommended Setup)
+
+**Goal:** store all timestamps in UTC internally, but display them in Pakistan time (Asia/Karachi).
+
+### Correct & recommended setup (final)
+
+- Backend sends UTC timestamps (JSON dates are ISO with `Z`).
+- DB stores timestamps as `timestamptz` (UTC internally).
+- DB session timezone is Asia/Karachi for local display in SQL tools.
+
+### How to verify
+
+Run this in Postgres:
+
+```sql
+SELECT NOW();
+```
+
+If it shows `+0500`, DB timezone is PKT.
+
+Check latest record:
+
+```sql
+SELECT "checkinAt" FROM "CheckIn" ORDER BY "checkinAt" DESC LIMIT 1;
+```
+
+### What NOT to do
+
+- Don’t add `+5 hours` manually.
+- Don’t hardcode timezone offsets.
+- Don’t store timestamps as plain `timestamp` (without timezone).
+
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
