@@ -3,7 +3,7 @@ import prisma from '@/lib/prisma'
 
 export async function GET() {
   try {
-    const events = await prisma.event.findMany({
+    const events: { occasion: string }[] = await prisma.event.findMany({
       select: { occasion: true }
     })
     const occasions = events.map(event => event.occasion)
