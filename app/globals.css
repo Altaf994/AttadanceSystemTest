@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
+/* Root theme variables */
 :root {
   --background: #ffffff;
   --foreground: #171717;
-}
 
-@theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -26,7 +26,9 @@ body {
 }
 
 /* make sizing predictable for form controls */
-*, *::before, *::after { box-sizing: border-box; }
+*, *::before, *::after {
+  box-sizing: border-box;
+}
 
 /* Auth layout utilities */
 .auth-card {
@@ -39,6 +41,7 @@ body {
   overflow: visible; /* allow native dropdowns to extend beyond the card */
   background: #fff;
 }
+
 .auth-left {
   flex: 0 0 420px;
   display: flex;
@@ -46,14 +49,17 @@ body {
   justify-content: center;
   background: #fff;
 }
+
 .auth-left .poster {
   width: 85%;
   max-width: 360px;
 }
+
 .auth-divider {
   width: 6px;
   background: #0b5a79;
 }
+
 .auth-right {
   flex: 1;
   min-width: 0; /* allow flex child to shrink instead of overflowing */
@@ -67,12 +73,14 @@ body {
   width: 100%;
   min-width: 0;
 }
+
 .auth-right select,
 .auth-right .half,
 .auth-right select:focus {
   position: relative; /* ensure selects create a stacking context */
   z-index: 50; /* bring select and its dropdown above surrounding elements */
 }
+
 .auth-form-row {
   display: flex;
   gap: 8px;
@@ -81,6 +89,7 @@ body {
   width: 100%;
   min-width: 0;
 }
+
 .auth-form-row .half {
   flex: 1 1 0;
   width: 100%;
@@ -98,46 +107,116 @@ body {
     height: auto;
     padding: 20px 0;
   }
+
   .auth-left {
     flex: none;
     width: 100%;
     padding: 16px 0;
   }
-  .auth-divider { display: none; }
-  .auth-right { padding: 20px; }
-  .auth-form-row { flex-direction: column; }
-  .auth-form-row .half { width: 100%; min-width: 0; }
-  .auth-card { max-width: 100%; }
+
+  .auth-divider {
+    display: none;
+  }
+
+  .auth-right {
+    padding: 20px;
+  }
+
+  .auth-form-row {
+    flex-direction: column;
+  }
+
+  .auth-form-row .half {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .auth-card {
+    max-width: 100%;
+  }
 }
 
-/* Extra small phones: tighten layout, hide poster, show small logo */
+/* Extra small phones */
 @media (max-width: 480px) {
   .auth-card {
     width: 95vw;
     padding: 8px 0;
   }
-  /* Show a scaled poster above the form on very small screens */
+
   .auth-left {
-    display: block;
     flex: none;
     width: 100%;
     padding: 8px 0 0 0;
     display: flex;
     justify-content: center;
   }
-  .auth-left .poster { width: 90%; max-width: 420px; max-height: 180px; object-fit: contain; }
-  .auth-divider { display: none; }
-  .auth-right { padding: 12px; }
-  .auth-right h3 { font-size: 18px; }
-  .auth-right p { font-size: 14px; }
-  .auth-form-row { gap: 6px; }
-  .auth-form-row .half { width: 100%; min-width: 0; }
-  input, select, textarea, button { font-size: 15px; padding: 10px; }
-  .auth-card { box-shadow: 0 8px 30px rgba(2,10,40,0.08); }
-  .mobile-logo { display: block; text-align: center; margin-bottom: 12px; }
-  .mobile-logo img { width: 64px; height: auto; border-radius: 8px; }
+
+  .auth-left .poster {
+    width: 90%;
+    max-width: 420px;
+    max-height: 180px;
+    object-fit: contain;
+  }
+
+  .auth-divider {
+    display: none;
+  }
+
+  .auth-right {
+    padding: 12px;
+  }
+
+  .auth-right h3 {
+    font-size: 18px;
+  }
+
+  .auth-right p {
+    font-size: 14px;
+  }
+
+  .auth-form-row {
+    gap: 6px;
+  }
+
+  .auth-form-row .half {
+    width: 100%;
+    min-width: 0;
+  }
+
+  input,
+  select,
+  textarea,
+  button {
+    font-size: 15px;
+    padding: 10px;
+  }
+
+  .auth-card {
+    box-shadow: 0 8px 30px rgba(2,10,40,0.08);
+  }
+
+  .mobile-logo {
+    display: block;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+
+  .mobile-logo img {
+    width: 64px;
+    height: auto;
+    border-radius: 8px;
+  }
 }
 
-.mobile-logo { display: none; }
+.mobile-logo {
+  display: none;
+}
 
-
+/* Prevent browser extensions or autofill styles from forcing dark inputs */
+.auth-right input,
+.auth-right select,
+.auth-right textarea {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 1px solid #e6e9ef;
+}
